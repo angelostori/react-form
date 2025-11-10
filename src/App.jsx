@@ -1,33 +1,70 @@
-import articles from '../public/articles'
+import { useState } from 'react';
+import initialArticles from './articles';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 
 function App() {
+  // Stato iniziale con articoli di partenza
+  const [articles, setArticles] = useState(initialArticles);
 
+  // Stato per l'input titolo
+  const [title, setTitle] = useState('');
+
+  // Funzione al submit del form
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // Nuovo articolo
+    const newArticle = { title };
+
+    // Aggiungo il nuovo articolo alla lista
+    const updatedArticles = [newArticle, ...articles];
+
+    // Aggiorno lo stato con la nuova lista
+    setArticles(updatedArticles);
+
+    // Pulisco il campo input
+    setTitle('');
+  };
 
   return (
-    <>
-      <div className="container">
-        <h3>Articoli:</h3>
-        <ul className='my-3'>
-          {articles.map(article =>
-            <li key={article.id}>{article.title}</li>
-          )}
-        </ul>
+    <div className="container py-4">
+      <h2 className="text-center mb-4 text-primary">Lista Articoli</h2>
+
+      <ul className="list-group mb-4 shadow-sm">
+        {articles.map((article, index) => (
+          <li
+            key={index}
+            className="list-group-item d-flex justify-content-between align-items-center"
+          >
+            <div>
+              {article.title}
+            </div>
+          </li>
+        ))}
+      </ul>
+
+      <div className="card p-4 shadow-sm">
+        <form onSubmit={handleSubmit}>
+          <h5 className="mb-3 text-secondary">Aggiungi nuovo articolo</h5>
+          <div className="mb-3">
+            <label className="form-label">Titolo:</label>
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Scrivi il titolo..."
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              required
+            />
+          </div>
+          <button className="btn btn-primary" type="submit">
+            <i className="bi bi-plus-circle me-2"></i>Aggiungi
+          </button>
+        </form>
       </div>
-
-
-      <div className="container">
-        <h4>Aggiungi nuovo articolo</h4>
-        <label class="form-label">Titolo:</label>
-        <input
-          type="text"
-          className="form-control"
-          required
-        />
-        <button className='btn btn-dark my-3' type="submit">Aggiungi</button>
-      </div>
-
-    </>
-  )
+    </div>
+  );
 }
 
-export default App
+export default App;
