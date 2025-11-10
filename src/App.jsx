@@ -14,6 +14,12 @@ function App() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    // Controllo la lunghezza minima del testo da inserire
+    if (title.length < 5) {
+      alert('Il titolo non può contenere meno di 5 char!');
+      return;
+    }
+
     // Nuovo articolo
     const newArticle = { title };
 
