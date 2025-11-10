@@ -27,6 +27,12 @@ function App() {
     setTitle('');
   };
 
+  // Funzione creare un nuovo array senza l'articolo con quell'indice
+  const handleDelete = (indexToDelete) => {
+    const filteredArticles = articles.filter((article, index) => index !== indexToDelete);
+    setArticles(filteredArticles);
+  };
+
   return (
     <div className="container py-4">
       <h2 className="text-center mb-4 text-warning">Lista Articoli</h2>
@@ -39,7 +45,7 @@ function App() {
             <div>
               {article.title}
             </div>
-            <button className='btn btn-danger'>
+            <button className='btn btn-danger' onClick={() => handleDelete(index)}>
               <i className="bi bi-trash"></i>
             </button>
           </li>
