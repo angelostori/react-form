@@ -29,17 +29,19 @@ function App() {
 
   return (
     <div className="container py-4">
-      <h2 className="text-center mb-4 text-primary">Lista Articoli</h2>
+      <h2 className="text-center mb-4 text-warning">Lista Articoli</h2>
 
       <ul className="list-group mb-4 shadow-sm">
         {articles.map((article, index) => (
           <li
             key={index}
-            className="list-group-item d-flex justify-content-between align-items-center"
-          >
+            className="list-group-item d-flex justify-content-between align-items-center list-group-item-warning">
             <div>
               {article.title}
             </div>
+            <button className='btn btn-danger'>
+              <i className="bi bi-trash"></i>
+            </button>
           </li>
         ))}
       </ul>
@@ -55,10 +57,9 @@ function App() {
               placeholder="Scrivi il titolo..."
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              required
-            />
+              required />
           </div>
-          <button className="btn btn-primary" type="submit">
+          <button className="btn btn-warning" type="submit">
             <i className="bi bi-plus-circle me-2"></i>Aggiungi
           </button>
         </form>
